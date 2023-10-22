@@ -1,27 +1,29 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[15]:
 
 
 import streamlit as st
-from streamlit_chat import message
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import ConversationalRetrievalChain
-from langchain.document_loaders.csv_loader import CSVLoader
-from langchain.vectorstores import FAISS
-import tempfile
+from llama_index import VectorStoreIndex, ServiceContext, Document
+from llama_index.llms import OpenAI
 import openai
-import base64
+from llama_index import SimpleDirectoryReader
+from llama_index import download_loader
 from PIL import Image
 
 
-# In[2]:
+# In[19]:
 
 
 # Set the GPT-3 api key
-openai.api_key = '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'
+openai.api_key = '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'
+
+
+# In[16]:
+
+
+SimpleWebPageReader = download_loader("SimpleWebPageReader")
 
 
 # In[6]:
@@ -48,82 +50,66 @@ def add_bg_from_local(image_file):
 add_bg_from_local('img1.jpg') 
 
 
-# In[7]:
+# In[12]:
 
 
-# Left pane
-uploaded_file = st.sidebar.file_uploader("Upload file here for personal chatbot: ", type="csv")
+st.header("Chat with the Streamlit docs 💬 📚")
 
-if uploaded_file :
-   #use tempfile because CSVLoader only accepts a file_path
-    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-        tmp_file.write(uploaded_file.getvalue())
-        tmp_file_path = tmp_file.name
-
-    loader = CSVLoader(file_path=tmp_file_path, encoding="utf-8", csv_args={'delimiter': ','})
-    data = loader.load()
+if "messages" not in st.session_state.keys(): # Initialize the chat message history
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Ask me a question about Streamlit's open-source Python library!"}
+    ]
 
 
-# In[10]:
+# In[20]:
 
 
-with personal_chatbot:
-    st.header("Ask questions to personal chatbot: ")
+@st.cache_resource(show_spinner=False)
+def load_data():
+    with st.spinner(text="Loading and indexing the Streamlit docs – hang tight! This should take 1-2 minutes."):
+        loader = SimpleWebPageReader()
+        docs = loader.load_data(urls=['https://www.foodfromtheheart.sg/in-kind-donations'])
+        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0.5, system_prompt="You are an expert on the Streamlit Python library and your job is to answer technical questions. Assume that all questions are related to the Streamlit Python library. Keep your answers technical and based on facts – do not hallucinate features."))
+        index = VectorStoreIndex.from_documents(docs, service_context=service_context)
+        return index
 
-    if uploaded_file :
-        #use tempfile because CSVLoader only accepts a file_path
-            with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                tmp_file.write(uploaded_file.getvalue())
-                tmp_file_path = tmp_file.name
+index = load_data()
 
-            loader = CSVLoader(file_path=tmp_file_path, encoding="utf-8", csv_args={'delimiter': ','})
-            data = loader.load()
-            embeddings = OpenAIEmbeddings()
-            vectorstore = FAISS.from_documents(data, embeddings)
-            chain = ConversationalRetrievalChain.from_llm(
-            llm = ChatOpenAI(temperature=0.0,model_name='gpt-3.5-turbo'),
-            retriever=vectorstore.as_retriever())
 
-            def conversational_chat(query):
-                placeholder = st.empty()
-                result = chain({"question": query, "chat_history": st.session_state['history']})
-                st.session_state['history'].append((query, result["answer"]))
-                
-                return result["answer"]
-            
-            if 'history' not in st.session_state:
-                st.session_state['history'] = []
-           
-            if 'generated' not in st.session_state:
-                st.session_state['generated'] = ["Hi! Ask anything from uploaded " + uploaded_file.name[:-4]]
+# In[21]:
 
-            if 'past' not in st.session_state:
-                st.session_state['past'] = ["Hi"]
 
-            #container for the chat history
-            response_container = st.container()
-            #container for the user's text input
-            container = st.container()
+chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
 
-            with container:
-                st.write("Please ask anything to your personal chatbot...")
-                with st.form(key='my_form', clear_on_submit=True):
-                
-                    user_input = st.text_input("Query:", placeholder="Ask questions from personal csv file uploaded", key='input')
-                    submit_button = st.form_submit_button(label='Send')
-                    
-                if submit_button and user_input:
-                    output = conversational_chat(user_input)
-                    st.session_state['generated'].append(output)
-                    st.session_state['past'].append(user_input)
-                    
-                    
 
-            if st.session_state['generated']:
-                with response_container:
-                    for i in range(len(st.session_state['generated'])):
-                        message(st.session_state["past"][i], is_user=True, key=str(i) + '_user', avatar_style = "big-ears-neutral")
-                        message(st.session_state["generated"][i], key=str(i), avatar_style="fun-emoji")
+# In[31]:
+
+
+# Initialize session_state if not already defined
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
+
+# Prompt for user input and save to chat history
+if prompt := st.text_input("Your question"):  
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+# Display the prior chat messages
+for message in st.session_state.messages:  
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+
+# In[26]:
+
+
+# If last message is not from assistant, generate a new response
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = chat_engine.chat(prompt)
+            st.write(response.response)
+            message = {"role": "assistant", "content": response.response}
+            st.session_state.messages.append(message) # Add response to message history
 
 
 # In[ ]:
