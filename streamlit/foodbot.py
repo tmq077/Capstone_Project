@@ -17,7 +17,7 @@ from PIL import Image
 
 
 # Set the GPT-3 api key
-openai.api_key = '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'
+openai.api_key = st.secrets.openai_key
 
 
 # In[16]:
