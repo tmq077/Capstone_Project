@@ -23,7 +23,7 @@ openai.api_key = st.secrets.openai_key
 
 
 # Add a heading for the app
-st.header("Chat with the Streamlit docs 💬 📚")
+st.header("Ask me about food donations in Singapore!")
 
 
 # In[ ]:
