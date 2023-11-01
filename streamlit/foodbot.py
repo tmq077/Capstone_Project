@@ -60,7 +60,8 @@ index = load_data()
 
 
 # Create chat engine
-chat_engine = index.as_chat_engine(chat_mode="context")
+query_engine = index.as_query_engine(service_context=gpt_context)
+chat_engine = CondenseQuestionChatEngine.from_defaults(query_engine, verbose=True)
 
 
 # In[ ]:
