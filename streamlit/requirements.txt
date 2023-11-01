@@ -21,8 +21,6 @@ charset-normalizer==3.2.0
 click==8.1.7
 clikit==0.6.2
 cloudpathlib==0.16.0
-cloudpickle==3.0.0
-clyent==1.2.2
 cmdstanpy==0.9.5
 comm==0.1.4
 conda-repo-cli==1.0.75
