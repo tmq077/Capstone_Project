@@ -50,7 +50,8 @@ def load_data():
         index = load_index_from_storage(storage_context)
 
         # Load the model 
-        gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048)
+        gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert in helping individual food donor looking to donate specific food items and your job is to answer questions using the provided context from documents on different food support organisations. All questions are related to the food support organisations documents. Restrict the answer to the context information provided, and answer with the name of the food support organisations, any requirements for the donated food, methods to donate the food, and contact information – do not hallucinate features.")
+
         return index
 
 index = load_data()
@@ -60,7 +61,7 @@ index = load_data()
 
 
 # Create chat engine
-chat_engine = index.as_chat_engine(chat_mode="context")
+chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
 
 
 # In[ ]:
