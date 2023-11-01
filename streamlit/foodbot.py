@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 # Import the required libraries
 import streamlit as st
 from llama_index import VectorStoreIndex, ServiceContext, Document
@@ -11,33 +5,17 @@ from llama_index.llms import OpenAI
 import openai
 from llama_index import StorageContext, load_index_from_storage
 
-
-# In[ ]:
-
-
 # Set OpenAI API key through the streamlit app's secrets
 openai.api_key = st.secrets.openai_key
 
-
-# In[ ]:
-
-
 # Add a heading for the app
 st.header("Ask me about food donations in Singapore!")
-
-
-# In[ ]:
-
 
 # Session state to keep track of chatbot's message history
 if "messages" not in st.session_state.keys(): # Initialize the chat message history
     st.session_state.messages = [
         {"role": "assistant", "content": "Ask me a question about food donation in Singapore"}
     ]
-
-
-# In[ ]:
-
 
 # Load and index data
 @st.cache_resource(show_spinner=False)
@@ -51,21 +29,13 @@ def load_data():
 
         # Load the model 
         gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert on helping individual food donor looking to donate specific food items and your job is to answer questions using the provided context from documents on different food support organisations. Restrict the answer to the context information provided. Provide information on where and how to donate the specific food items, and if there are any expiry data for the food items. Do not hallucinate features.")
-        return index
+        return index, gpt_context
 
-index = load_data()
-
-
-# In[ ]:
-
+index, gpt_context = load_data()
 
 # Create chat engine
 query_engine = index.as_query_engine(service_context=gpt_context)
 chat_engine = CondenseQuestionChatEngine.from_defaults(query_engine, verbose=True)
-
-
-# In[ ]:
-
 
 # Prompt for user input and display message history
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
@@ -74,10 +44,6 @@ if prompt := st.chat_input("Your question"): # Prompt for user input and save to
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
-
-
-# In[ ]:
-
 
 # Pass query to chat engine and display response
 # If last message is not from assistant, generate a new response
