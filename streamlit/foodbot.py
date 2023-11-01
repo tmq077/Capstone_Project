@@ -1,67 +1,90 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[15]:
+# In[ ]:
 
 
+# Import the required libraries
 import streamlit as st
 from llama_index import VectorStoreIndex, ServiceContext, Document
 from llama_index.llms import OpenAI
 import openai
-import json
-from llama_index import SimpleDirectoryReader, GPTVectorStoreIndex
-from llama_index import download_loader
-
-# In[19]:
+from llama_index import StorageContext, load_index_from_storage
 
 
-# Set the GPT-3 api key
+# In[ ]:
+
+
+# Set OpenAI API key through the streamlit app's secrets
 openai.api_key = st.secrets.openai_key
 
-SimpleWebPageReader = download_loader("SimpleWebPageReader")
-loader = SimpleWebPageReader()
-documents = loader.load_data(urls=['https://www.metta.org.sg/donation-in-kind/'])
-index = GPTVectorStoreIndex.from_documents(documents)
-query_engine = index.as_query_engine()
 
-class Chatbot:
-    def __init__(self, api_key, index):
-        self.index = index
-        openai.api_key = api_key
-        self.chat_history = []
+# In[ ]:
 
-    def generate_response(self, user_input):
-        query_engine = index.as_query_engine()
-        response = query_engine.query(user_input)
 
-        message = {"role": "assistant", "content": response.response}
-        self.chat_history.append({"role": "user", "content": user_input})
-        self.chat_history.append(message)
-        return message
+# Add a heading for the app
+st.header("Chat with the Streamlit docs 💬 📚")
 
-    def load_chat_history(self, filename):
-        try:
-            with open(filename, 'r') as f:
-                self.chat_history = json.load(f)
-        except FileNotFoundError:
-            pass
 
-    def save_chat_history(self, filename):
-        with open(filename, 'w') as f:
-            json.dump(self.chat_history, f)
+# In[ ]:
 
-# Create a Streamlit app
-st.title("Chatbot Application")
 
-# Initialize the Chatbot
-bot = Chatbot(api_key, index=index)
-bot.load_chat_history("chat_history.json")
+# Session state to keep track of chatbot's message history
+if "messages" not in st.session_state.keys(): # Initialize the chat message history
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Ask me a question about food donation in Singapore"}
+    ]
 
-user_input = st.text_input("You:", "")
-if user_input.lower() in ["bye", "goodbye"]:
-    st.write("Bot: Goodbye!")
-    bot.save_chat_history("chat_history.json")
-else:
-    if st.button("Submit"):
-        response = bot.generate_response(user_input)
-        st.write(f"Bot: {response['content']}")
+
+# In[ ]:
+
+
+# Load and index data
+@st.cache_resource(show_spinner=False)
+def load_data():
+    with st.spinner(text="Loading and indexing food donation docs – hang tight! This should take 1-2 minutes."):
+        # Rebuild the storage context
+        storage_context = StorageContext.from_defaults(persist_dir="data/index.vecstore")
+
+        # Load the index
+        index = load_index_from_storage(storage_context)
+
+        # Load the model 
+        gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert on the food donations documents and your job is to answer questions related to the documents. Assume that all questions are related to the food donations documents. Keep your answers technical and based on facts – do not hallucinate features.")
+        return index
+
+index = load_data()
+
+
+# In[ ]:
+
+
+# Create chat engine
+chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
+
+
+# In[ ]:
+
+
+# Prompt for user input and display message history
+if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+for message in st.session_state.messages: # Display the prior chat messages
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+
+# In[ ]:
+
+
+# Pass query to chat engine and display response
+# If last message is not from assistant, generate a new response
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = chat_engine.chat(prompt)
+            st.write(response.response)
+            message = {"role": "assistant", "content": response.response}
+            st.session_state.messages.append(message) # Add response to message history
+
