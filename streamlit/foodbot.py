@@ -60,7 +60,7 @@ index = load_data()
 
 
 # Create chat engine
-chat_engine = index.as_chat_engine(chat_mode="context", verbose=True)
+chat_engine = index.as_chat_engine(chat_mode="context")
 
 
 # In[ ]:
