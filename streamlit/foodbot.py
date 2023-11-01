@@ -29,7 +29,7 @@ def load_data():
         index = load_index_from_storage(storage_context)
 
         # Load the model 
-        gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert on helping individual food donor looking to donate specific food items and your job is to answer questions using the provided context from documents on different food support organisations. Restrict the answer to the context information provided. Provide information on where and how to donate the specific food items, and if there are any expiry data for the food items. Do not hallucinate features.")
+        gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert on helping individual food donor looking to donate specific food items and your job is to answer questions using the provided context from documents on different food support organisations. Provide information on where to donate the specific food items and how to donate the food items, and if there are any expiry data for the food items. Restrict the answer to the context information provided. Do not hallucinate features.")
         return index, gpt_context
 
 index, gpt_context = load_data()
