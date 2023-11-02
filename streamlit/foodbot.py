@@ -33,10 +33,12 @@ def load_data():
 
         return index
 
-index = load_data()
+index= load_data()
 
 # Create chat engine
-chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
+gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert on food donation in Singapore. Your role is to provide detailed information about food charities and help individuals looking to donate specific food items. For each inquiry, answer with the name of the food charity that accepts the food item, provide details on how to donate it, specify the location or address of the food charity, and include any relevant information such as expiry dates and delivery instructions if available. Ensure your responses are based on the documents and resources you have access to.")
+query_engine = index.as_query_engine(service_context=gpt_context)
+chat_engine = CondenseQuestionChatEngine.from_defaults(query_engine, verbose=True)
 
 # Prompt for user input and display message history
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
