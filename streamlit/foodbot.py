@@ -31,12 +31,11 @@ def load_data():
         # Load the model 
         gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert on food donation in Singapore. Your role is to provide detailed information about food charities and help individuals looking to donate specific food items. For each inquiry, answer with the name of the food charity that accepts the food item, provide details on how to donate it, specify the location or address of the food charity, and include any relevant information such as expiry dates and delivery instructions if available. Ensure your responses are based on the documents and resources you have access to.")
 
-        return index
+        return index, gpt_context
 
-index= load_data()
+index, gpt_context= load_data()
 
 # Create chat engine
-gpt_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0), context_window=2048, system_prompt="You are an expert on food donation in Singapore. Your role is to provide detailed information about food charities and help individuals looking to donate specific food items. For each inquiry, answer with the name of the food charity that accepts the food item, provide details on how to donate it, specify the location or address of the food charity, and include any relevant information such as expiry dates and delivery instructions if available. Ensure your responses are based on the documents and resources you have access to.")
 query_engine = index.as_query_engine(service_context=gpt_context)
 chat_engine = CondenseQuestionChatEngine.from_defaults(query_engine, verbose=True)
 
