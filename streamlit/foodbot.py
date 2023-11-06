@@ -21,7 +21,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat message hist
 # Load and index data
 @st.cache_resource(show_spinner=False)
 def load_data():
-    with st.spinner(text="Loading and indexing food donation docs – hang tight! This should take 1-2 minutes."):
+    with st.spinner(text="Loading – hang tight! This should take 1-2 minutes."):
         # Rebuild the storage context
         storage_context = StorageContext.from_defaults(persist_dir="streamlit/data/index.vecstore")
 
