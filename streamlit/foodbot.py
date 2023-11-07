@@ -19,17 +19,17 @@ with st.sidebar:
     st.title('Do you know..')
     st.markdown('''
     Singapore generated **813 million kg** of waste in 2022, accounting for **12%** of total waste generated.
-    Annually, each household throws away **$258** worth of food, equivalent of **52 plates of nasi lemak**! 
-    Amount of food waste has grown by **30%** over the past 10 years and is expected to rise further.
-    At current rate of waste disposal, Singapore will need a new incineration plant every 7-10 years and a new landfill every 30-35 years.
+    \nAnnually, each household throws away **$258** worth of food, equivalent of **52 plates of nasi lemak**! 
+    \nAmount of food waste has grown by **30%** over the past 10 years and is expected to rise further.
+    \nAt the current rate of waste disposal, Singapore will need a new incineration plant every 7-10 years and a new landfill every 30-35 years.
     
-    You can help by donating your excess food to organisations who need them.
-    ''')
+    You can help by donating your excess food to organizations who need them.
+    ''', unsafe_allow_html=True)
 
 # Session state to keep track of chatbot's message history
 if "messages" not in st.session_state.keys(): # Initialize the chat message history
     st.session_state.messages = [
-        {"role": "assistant", "content": "Ask me a question about food donation in Singapore"}
+        {"role": "assistant", "content": "Hello! How can I help?"}
     ]
 
 # Load and index data
