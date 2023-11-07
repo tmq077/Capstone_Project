@@ -5,12 +5,16 @@ from llama_index.chat_engine import CondenseQuestionChatEngine
 from llama_index.llms import OpenAI
 import openai
 from llama_index import StorageContext, load_index_from_storage
+from PIL import Image
 
 # Set OpenAI API key through the streamlit app's secrets
 openai.api_key = st.secrets.openai_key
 
-# Add a heading for the app
-st.header("Ask me about food donations in Singapore!")
+#opening the image
+image = Image.open('banner.jpg')
+
+#displaying the image on streamlit app
+st.image(image, use_column_width=True)
 
 # Session state to keep track of chatbot's message history
 if "messages" not in st.session_state.keys(): # Initialize the chat message history
