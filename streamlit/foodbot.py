@@ -11,7 +11,7 @@ from PIL import Image
 openai.api_key = st.secrets.openai_key
 
 #opening the image
-image = Image.open('banner.jpg')
+image = Image.open('streamlit/banner.jpg')
 
 #displaying the image on streamlit app
 st.image(image, use_column_width=True)
