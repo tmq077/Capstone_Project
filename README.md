@@ -1,4 +1,4 @@
-![image](https://github.com/tmq077/GA_Capstone_Project/assets/142147568/fd5a2c8c-9f44-413e-b447-b7034fcee91b)# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Capstone Project: "DonateFoodGoWhere" - a chatbot to enquire about donating specific food items in Singapore
+![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Capstone Project: "DonateFoodGoWhere" - a chatbot to enquire about donating specific food items in Singapore
 
 ### Problem Statement
 
@@ -32,7 +32,7 @@ Data is saved from the website of various organisations that accept food donatio
 ### Conclusion
 
 - The RAG + GPT-3.5-Turbo model pipeline yields an answer relevancy of 0.97 and faithfulness of 0.87, indicating the model is able to generate concise and informative answers that are derived from the external dataset with minimal hallucations. 
-- With this model pipeline, a chatbot is developed ([https://snack-o-meter.streamlit.app/](https://donatefoodgowhere.streamlit.app/)) to help individual food donors find the right organisations for donating their specific food items, along with additional donation information. 
+- With this model pipeline, a chatbot is developed ([https://donatefoodgowhere.streamlit.app/](https://donatefoodgowhere.streamlit.app/)) to help individual food donors find the right organisations for donating their specific food items, along with additional donation information. 
   
 ---
 
