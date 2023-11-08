@@ -33,9 +33,9 @@ Data is saved from the website of various organisations that accept food donatio
 
 ### Conclusion
 
-- Our decision tree model yields train and test accuracy greater than 0.9, and the train cross validation score also shows that the model is reliable to be deployed for classification.
-- With this model, we developed an user-friendly tool (https://snack-o-meter.streamlit.app/) to help consumers identify if the biscuit of their choice is healthy or not, and recommend healthy alternatives.
-
+- The RAG + GPT-3.5-Turbo model pipeline yields an answer relevancy of 0.97 and faithfulness of 0.87, indicating the model is able to generate concise and informative answers that are derived from the external dataset with minimal hallucations. 
+- With this model pipeline, a chatbot is developed ([https://snack-o-meter.streamlit.app/](https://donatefoodgowhere.streamlit.app/)) to help individual food donors find the right organisations for donating their specific food items, along with additional donation information. 
+  
 ---
 
 ### Recommendations
