@@ -18,7 +18,7 @@ Resources:
 
 ### Data Used
 
-Data is saved from the website of various organisations that accept food donation, in PDF and html format. These are in [`webpages`] (/code/webpages).
+Data is saved from the website of various organisations that accept food donation, in PDF and html format. These are in [`webpages`](/code/webpages).
 
 ---
 
