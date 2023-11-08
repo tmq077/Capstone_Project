@@ -1,4 +1,4 @@
-![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Capstone Project: "DonateFoodGoWhere" - a chatbot to enquire about donating specific food items in Singapore
+# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Capstone Project: "DonateFoodGoWhere" - a chatbot to enquire about donating specific food items in Singapore
 
 ### Problem Statement
 
@@ -25,7 +25,7 @@ Data is saved from the website of various organisations that accept food donatio
 ### Notebook description
 
 * [`rag_finetuning`](/code/rag_finetuning.ipynb): Workflow for implementing RAG and Fine-tuning, and evaluation of the model pipeline
-* [`foodbot.py`](../streamlit/foodbot.py): Code for deployment of chatbot in streamlit
+* [`foodbot.py`](/streamlit/foodbot.py): Code for deployment of chatbot in streamlit
 
 ---
 
