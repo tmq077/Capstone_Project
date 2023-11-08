@@ -2,7 +2,7 @@
 
 ### Problem Statement
 
-n 2022, Singapore generated 813 million kg of food waste, accounting for 12% of total waste generated. Annually, each household throws away $258 worth of food, equivalent of 52 plates of nasi lemak (assuming each plate cost $5). The amount of food waste has grown by 30% over the past 10 years, and is expeced to rise further. At current rate of waste disposal, Singapore will need a new incineration plant every 7-10 years, and a new landfill every 30-35 years.
+In 2022, Singapore generated 813 million kg of food waste, accounting for 12% of total waste generated. Annually, each household throws away $258 worth of food, equivalent of 52 plates of nasi lemak (assuming each plate cost $5). The amount of food waste has grown by 30% over the past 10 years, and is expeced to rise further. At current rate of waste disposal, Singapore will need a new incineration plant every 7-10 years, and a new landfill every 30-35 years.
 
 Households contribute around half of the food waste generated. As part of Singapore’s Zero Waste Masterplan, one key component of food waste management strategies is encouraging members of public to donate excess food. Organisations have specific wish list of food items and donation requirements, and it is time-consuming for individuals to find the right organisation for the food they wish to donate.
 
@@ -18,26 +18,8 @@ Resources:
 
 ### Data Used
 
-[`NTUC Fairprice`](https://www.fairprice.com.sg/category/biscuits): Data is scraped from NTUC Fairprice website, under category of Biscuits.
-<br>Biscuit Subcategory: 
-1) Creamed and Filled
-2) Crackers
-3) Wafers
-4) Chocolate Cookies
+Data is saved from the website of various organisations that accept food donation, in PDF and html format. These are in [`webpages`] (/code/webpages).
 
----
-
-### Data Dictionary
-
-|Feature|Type|Description|
-|---|---|---|
-|**type**|*string*|Subcategory of Biscuit<br>cookie: chocolate cookie<br>cracker<br>cream: creamed & filled biscuit<br>wafers|
-|**product**|*string*|Name of product|
-|**per_serving_g**|*int64*|Size of serving per one gram (gram)|
-|**total_fat_g_per_gram_of_serving**|*int64*|Total fats per gram of serving (gram)|
-|**sugars_g_per_gram_of_serving**|*int64*|Sugars per gram of serving (gram)|
-|**sodium_g_per_gram_of_serving**|*int64*|Sodium per gram of serving (gram)|
-|**class**|*string*|Healthy<br>Unhealthy|
 ---
 
 ### Notebook description
