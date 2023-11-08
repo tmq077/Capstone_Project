@@ -1,4 +1,4 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Capstone Project: "DonateFoodGoWhere" - a chatbot for donating specific food items in Singapore
+# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Capstone Project: "DonateFoodGoWhere" - Chatbot for donating specific food items in Singapore
 
 ### Problem Statement
 
