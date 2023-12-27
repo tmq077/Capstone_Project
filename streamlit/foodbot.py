@@ -23,7 +23,7 @@ with st.sidebar:
     \nAmount of food waste has grown by **30%** over the past 10 years and is expected to rise further.
     \nAt the current rate of waste disposal, Singapore will need a new incineration plant every **7-10 years** and a new landfill every **30-35 years**.
     \nYou can help by donating your excess food to organizations who need them.
-    \nDo note that information of the organisations presented here is accurate as of 1 November 2023, and does not include all the organisations that accept food donations.
+    \nDo note that information of the organisations provided here is accurate as of 1 November 2023, and does not include all the organisations that accept food donations.
     ''')
 
 # Session state to keep track of chatbot's message history
