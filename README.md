@@ -23,10 +23,10 @@ Data is saved from the website of various organisations that accept food donatio
 
 ---
 
-### Notebook description
+### Python Notebook description
 
 * [`rag_finetuning`](/code/rag_finetuning.ipynb): Workflow for implementing RAG and Fine-tuning, and evaluation of the model pipeline
-* [`foodbot.py`](/streamlit/foodbot.py): Code for deployment of chatbot in streamlit
+* [`foodbot.py`](/streamlit/foodbot.py): Deployment of chatbot in streamlit
 
 ---
 
