@@ -2,17 +2,18 @@
 
 ### Problem Statement
 
-In 2022, Singapore generated 813 million kg of food waste, accounting for 12% of total waste generated. Annually, each household throws away $258 worth of food, equivalent of 52 plates of nasi lemak (assuming each plate cost $5). The amount of food waste has grown by 30% over the past 10 years, and is expeced to rise further. At current rate of waste disposal, Singapore will need a new incineration plant every 7-10 years, and a new landfill every 30-35 years.
+In 2022, Singapore generated 813 million kg of food waste, accounting for 11% of total waste generated. Annually, each household throws away $258 worth of food, equivalent of 52 plates of nasi lemak (assuming each plate cost $5). The amount of food waste has grown by 20% over the past 10 years, and is expeced to rise further. At current rate of waste disposal, Singapore will need a new incineration plant every 7-10 years, and a new landfill every 30-35 years.
 
 Households contribute around half of the food waste generated. As part of Singapore’s Zero Waste Masterplan, one key component of food waste management strategies is encouraging members of public to donate excess food. Organisations have specific wish list of food items and donation requirements, and it is time-consuming for individuals to find the right organisation for the food they wish to donate.
 
 This project aims to explore how we can help link individuals up with organisations, by developing a chatbot for individuals to enquire about donating specific food items, and find out where and how to donate, along with the relevant donation instructions.
 
 _Resources:_
-- https://www.mse.gov.sg/cos/resources/cos-annex-e.pdf
-- https://sec.org.sg/pdf/e-newsletter/e-news-23012020.pdf
-- https://www.dbs.com/sustainability/zero-food-waste
 - https://www.nea.gov.sg/our-services/waste-management/3r-programmes-and-resources/food-waste-management
+- https://sec.org.sg/pdf/e-newsletter/e-news-23012020.pdf
+- https://www.towardszerowaste.gov.sg/foodwaste/
+- https://www.towardszerowaste.gov.sg/zero-waste-nation/
+- https://www.towardszerowaste.gov.sg/zero-waste-masterplan/chapter3/food/
 
 ---
 
