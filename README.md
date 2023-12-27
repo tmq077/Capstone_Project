@@ -23,7 +23,7 @@ Data is saved from the website of various organisations that accept food donatio
 
 ---
 
-### Python Notebook description
+### Python Notebook Description
 
 * [`rag_finetuning`](/code/rag_finetuning.ipynb): Workflow for implementing RAG and Fine-tuning, and evaluation of the model pipeline
 * [`foodbot.py`](/streamlit/foodbot.py): Deployment of chatbot in streamlit
@@ -32,6 +32,7 @@ Data is saved from the website of various organisations that accept food donatio
 
 ### Conclusion
 
+- To build a custom chatbot, this project explored the use of OpenAI's ChatGPT Large Language Model (GPT-3.5-Turbo), Retrieval Augmented Generation (RAG), and Fine-tuning
 - The RAG + GPT-3.5-Turbo model pipeline yields an answer relevancy of 0.97 and faithfulness of 0.87, indicating the model is able to generate concise and informative answers that are derived from the external dataset with minimal hallucinations. 
 - With this model pipeline, a chatbot is developed and deployed on streamlit ([https://donatefoodgowhere.streamlit.app/](https://donatefoodgowhere.streamlit.app/)) to help individual food donors find the right organisations for donating their specific food items, along with additional donation information. 
   
