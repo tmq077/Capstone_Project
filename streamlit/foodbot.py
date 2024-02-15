@@ -18,9 +18,9 @@ st.image(image, use_column_width=True)
 with st.sidebar:
     st.title('Do you know..')
     st.markdown('''
-    Singapore generated **813 million kg** of waste in 2022, accounting for **12%** of total waste generated.
+    Singapore generated **813 million kg** of waste in 2022, accounting for **11%** of total waste generated.
     \nAnnually, each household throws away **$258** worth of food, equivalent of **52 plates of nasi lemak**! 
-    \nAmount of food waste has grown by **30%** over the past 10 years and is expected to rise further.
+    \nAmount of food waste has grown by **20%** over the past 10 years and is expected to rise further.
     \nAt the current rate of waste disposal, Singapore will need a new incineration plant every **7-10 years** and a new landfill every **30-35 years**.
     \nYou can help by donating your excess food to organizations who need them.
     \nDo note that information of the organisations provided here is accurate as of 1 November 2023, and does not include all the organisations that accept food donations.
